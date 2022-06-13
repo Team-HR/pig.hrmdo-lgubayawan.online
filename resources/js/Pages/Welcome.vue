@@ -23,8 +23,6 @@
           </Link>
 
           <a href="#" class="btn btn-primary disabled ms-2">Go to Report</a>
-
-          <button @click="$inertia.get('/pig/2022/assessment-forms')">TEST</button>
         </div>
       </div>
     </div>

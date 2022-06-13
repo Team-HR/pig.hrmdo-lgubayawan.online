@@ -24358,11 +24358,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  }), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.$inertia.get('/pig/2022/assessment-forms');
-    })
-  }, "TEST")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ################################# ")]);
+  }), _hoisted_9])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ################################# ")]);
 }
 
 /***/ }),
