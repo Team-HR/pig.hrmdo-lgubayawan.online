@@ -1,0 +1,10 @@
+/* Add your own CSS here... */
+.form-check-input {
+    transform: scale(2) !important;
+}
+.form-check {
+    margin: 10px !important;
+}
+.form-check > label {
+    margin-left: 5px !important;
+}
