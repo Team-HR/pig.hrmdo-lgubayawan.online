@@ -18,8 +18,8 @@
             bulk of the card's content. -->
           </p>
           <!-- <a href="#" class="btn btn-success">Go to Assessment Form</a> -->
-          <Link href="/pig/2022/assessment-form">
-            <a class="btn btn-success">Go to Assessment Form</a>
+          <Link href="/pig/2022/assessment-form" class="btn btn-success">
+            Go to Assessment Form
           </Link>
 
           <a href="#" class="btn btn-primary disabled ms-2">Go to Report</a>

@@ -5,17 +5,22 @@
     <div class="container mt-5">
       <!-- container start -->
 
-      <Link href="/pig/2022/assessment-forms" v-if="!edit_form">
+      <Link href="/" v-if="!edit_form" class="btn btn-primary me-2">
+        <i class="bi bi-house"></i> Home
+      </Link>
+
+      <Link href="/pig/2022/assessment-forms" v-if="!edit_form" preserve-scroll>
         <a class="btn btn-primary">View Encoded Forms</a>
       </Link>
 
       <Link href="/pig/2022/assessment-forms" v-if="edit_form">
         <a class="btn btn-danger">Cancel Edit</a>
       </Link>
+      <!-- <Link href="/pig/2022/assessment-forms" class="btn btn-danger">Cancel Edit</Link> -->
 
       <!-- <button class="btn btn-danger ms-3" v-if="edit_form">Cancel Edit</button> -->
 
-      <form @submit.prevent="submit()">
+      <form method="post" @submit.prevent="submit()">
         <h3 class="text-center mb-5">
           Agri-extension Competency Gap Assessment Form
         </h3>
@@ -299,6 +304,15 @@
       <!-- container end -->
     </div>
 
+    <!-- toast start -->
+    <AppToast
+      ref="successToast"
+      color="text-white bg-success"
+      icon="bi bi-check-circle me-2"
+      title="Form Saved!"
+      msg="Form saved successfully!"
+    />
+    <!-- toast end -->
     <!-- ################################# -->
   </div>
 </template>
@@ -307,13 +321,16 @@
 import BreezeApplicationLogo from "@/Components/ApplicationLogo";
 // import { Link } from "@inertiajs/inertia-vue3";
 import { Link } from "@inertiajs/inertia-vue3";
+import AppToast from "../../../Components/Toast.vue";
 export default {
   props: {
+    edit_status: String, //created, updated, or deleted
     edit_form: Object,
   },
   components: {
     BreezeApplicationLogo,
     Link,
+    AppToast,
   },
   data() {
     return {
@@ -609,33 +626,32 @@ export default {
       ],
     };
   },
-  // watch: {
-  //   edit_form(form) {
-  //     this.form.name = form.name
-  //   },
-  // },
+
   methods: {
     get_title(competency_id) {
       var title = _.toUpper(competency_id);
       return title;
     },
     submit() {
-      // console.log(this.form);
       this.form.post("/pig/2022/assessment-form", {
+        replace: true,
         onSuccess: (page) => {
-          console.log(page);
           this.form.reset();
-          // this.$inertia.visit("/");
+          if (this.edit_status == "created") {
+            window.scrollTo(0, 0);
+            AppToast.methods.toast_save();
+          }
         },
       });
     },
     set_edit_form() {
       if (!this.edit_form) return false;
-      this.form = this.$inertia.form(this.edit_form)
+      this.form = this.$inertia.form(this.edit_form);
     },
+
   },
   mounted() {
-    console.log(this.edit_form);
+    // console.log(this.$refs.successToast.toast_save());
     this.set_edit_form();
   },
 };

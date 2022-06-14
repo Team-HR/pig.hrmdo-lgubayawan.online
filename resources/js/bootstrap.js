@@ -27,5 +27,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-import bootstrap from 'bootstrap';
+// import bootstrap from 'bootstrap';
+window.bootstrap = require('bootstrap');
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';

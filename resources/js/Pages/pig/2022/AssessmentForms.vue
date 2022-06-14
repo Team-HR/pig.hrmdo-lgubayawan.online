@@ -4,8 +4,8 @@
 
     <div class="container mt-5">
       <!-- container start -->
-      <Link href="/pig/2022/assessment-form">
-        <a class="btn btn-primary">Go Back/Add New</a>
+      <Link class="btn btn-primary" href="/pig/2022/assessment-form">
+        <i class="bi bi-arrow-90deg-left"></i> Go Back/Add New
       </Link>
 
       <h1 class="mt-3">Your Encoded Forms ({{ encoded_forms.length }})</h1>
@@ -25,12 +25,12 @@
               </Link> -->
               <button
                 class="btn btn-success"
-                @click.prevent="edit_form(form.id)"
+                @click="edit_form(form.id)"
               >
                 Edit
               </button>
 
-              <button class="btn btn-danger ms-3">Delete</button>
+              <!-- <button class="btn btn-danger ms-3">Delete</button> -->
             </td>
             <td>{{ form.name }}</td>
             <td>{{ form.created_at }}</td>
@@ -50,8 +50,8 @@
         <tbody>
           <tr v-for="form in all_encoded_forms" :key="form.id">
             <td>
-              <button class="btn btn-success">Edit</button>
-              <button class="btn btn-danger ms-3">Delete</button>
+              <button class="btn btn-success" @click="edit_form(form.id)">Edit</button>
+              <!-- <button class="btn btn-danger ms-3">Delete</button> -->
             </td>
             <td>{{ form.name }}</td>
             <td>{{ form.created_at }}</td>
@@ -60,29 +60,51 @@
       </table>
       <!-- container end -->
     </div>
-
+    <!-- toast start -->
+    <AppToast
+      ref="successToast"
+      color="text-white bg-warning"
+      icon="bi bi-check-circle me-2"
+      title="Form Updated!"
+      msg="Form updated successfully!"
+    />
+    <!-- toast end -->
     <!-- ################################# -->
   </div>
 </template>
 
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
-// import Inertia from "@inertiajs/inertia";
+import AppToast from "../../../Components/Toast.vue";
+
 export default {
   props: {
+    edit_status: String,
     encoded_forms: Array,
     all_encoded_forms: Array,
   },
   components: {
     Link,
+    AppToast,
   },
   data() {
     return {};
   },
   methods: {
     edit_form(id) {
-      this.$inertia.visit("/pig/2022/assessment-form/edit/" + id);
+      this.$inertia.visit("/pig/2022/assessment-form/edit/" + id, {
+        preserveScroll: true,
+        onSuccess: (page) => {
+          // console.log(page);
+          // window.scrollTo(0, 0)
+        },
+      });
     },
+  },
+  mounted() {
+    if (this.edit_status == "updated") {
+      this.$refs.successToast.toast_save();
+    }
   },
 };
 </script>

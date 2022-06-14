@@ -94,9 +94,9 @@ class PinakaImportantengGawainController extends Controller
         );
     }
 
-    public function assessment_forms()
+    public function assessment_forms($edit_status=null)
     {
-        return Inertia::render('pig/2022/AssessmentForms', ["encoded_forms" => $this->get_encoded_forms(), "all_encoded_forms" => $this->get_all_encoded_forms()]);
+        return Inertia::render('pig/2022/AssessmentForms', ["edit_status"=>$edit_status, "encoded_forms" => $this->get_encoded_forms(), "all_encoded_forms" => $this->get_all_encoded_forms()]);
     }
 
 
@@ -165,7 +165,8 @@ class PinakaImportantengGawainController extends Controller
 
             $record->save();
 
-            return $this->assessment_forms();
+            return $this->assessment_forms('updated');
+            // return Inertia::render('pig/2022/AssessmentForm',['edit_status'=>'updated']);
         }
 
         $record = new AgriExtensionCompetenciesRecord;
@@ -229,20 +230,20 @@ class PinakaImportantengGawainController extends Controller
         $record->cookie_id = $form->cookie('laravel_session');
 
         $record->save();
-
-        return Inertia::render('pig/2022/AssessmentForm');
+        return Inertia::render('pig/2022/AssessmentForm',['edit_status'=>'created']);
+        // return redirect('/pig/2022/assessment-form',[]);
     }
 
     private function get_encoded_forms()
     {
         $forms = AgriExtensionCompetenciesRecord::where('cookie_id', request()->cookie('laravel_session'))
-            ->orderByDesc('id')
+            ->orderByDesc('updated_at')
             ->get();
         return count($forms) > 0 ? $forms : [];
     }
     private function get_all_encoded_forms()
     {
-        $forms = AgriExtensionCompetenciesRecord::orderByDesc('id')->get();
+        $forms = AgriExtensionCompetenciesRecord::orderByDesc('updated_at')->get();
         return count($forms) > 0 ? $forms : [];
     }
 }
