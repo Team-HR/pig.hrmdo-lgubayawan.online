@@ -20,16 +20,9 @@
         <tbody>
           <tr v-for="form in encoded_forms" :key="form.id">
             <td>
-              <!-- <Link :href="`/pig/2022/assessment-form/edit/${form.id}`">
-                <a class="btn btn-success"> Edit </a>
-              </Link> -->
-              <button
-                class="btn btn-success"
-                @click="edit_form(form.id)"
-              >
+              <button class="btn btn-success" @click="edit_form(form.id)">
                 Edit
               </button>
-
               <!-- <button class="btn btn-danger ms-3">Delete</button> -->
             </td>
             <td>{{ form.name }}</td>
@@ -50,7 +43,9 @@
         <tbody>
           <tr v-for="form in all_encoded_forms" :key="form.id">
             <td>
-              <button class="btn btn-success" @click="edit_form(form.id)">Edit</button>
+              <button class="btn btn-success" @click="edit_form(form.id)">
+                Edit
+              </button>
               <!-- <button class="btn btn-danger ms-3">Delete</button> -->
             </td>
             <td>{{ form.name }}</td>
@@ -93,10 +88,10 @@ export default {
   methods: {
     edit_form(id) {
       this.$inertia.visit("/pig/2022/assessment-form/edit/" + id, {
-        preserveScroll: true,
+        method: "GET",
+        preserveScroll: false,
         onSuccess: (page) => {
-          // console.log(page);
-          // window.scrollTo(0, 0)
+          window.scrollTo(0, 0);
         },
       });
     },
