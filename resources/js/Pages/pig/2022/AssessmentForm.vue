@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-10 mt-2">
+  <div class="container mx-auto px-10 mt-2 mb-10">
     <!-- ################################# -->
     <i-button class="btn-primary" @click="$inertia.get('/')" v-if="!edit_form">Home</i-button>
     <i-button
