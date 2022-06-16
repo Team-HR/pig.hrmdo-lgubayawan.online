@@ -1,10 +1,26 @@
-/* Add your own CSS here... */
-.form-check-input {
-    transform: scale(2) !important;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+.btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg
 }
-.form-check {
-    margin: 10px !important;
+
+.btn-success {
+    @apply bg-green-500 hover:bg-green-700 text-white hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg
 }
-.form-check > label {
-    margin-left: 5px !important;
+
+.btn-danger {
+    @apply bg-red-500 hover:bg-red-700 text-white hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg
+}
+
+.disabled {
+  @apply shadow-md focus:outline-none focus:ring-0 transition duration-150 ease-in-out pointer-events-none opacity-60;
+}
+
+.table-celled, th, tr, td {
+    @apply border p-2
 }

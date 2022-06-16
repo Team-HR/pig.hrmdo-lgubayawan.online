@@ -1,336 +1,308 @@
 <template>
-  <div class="position-absolute top-0 min-vh-100 min-vw-100 bg-light">
+  <div class="container mx-auto px-10 mt-2">
     <!-- ################################# -->
+    <i-button class="btn-primary" @click="$inertia.get('/')" v-if="!edit_form">Home</i-button>
+    <i-button
+      @click="$inertia.get('/pig/2022/assessment-forms')"
+      v-if="!edit_form"
+      class="ml-2 btn-primary"
+      >View Encoded Forms</i-button
+    >
 
-    <div class="container mt-5">
-      <!-- container start -->
+    <i-button
+      @click="$inertia.get('/pig/2022/assessment-forms')"
+      v-if="edit_form"
+      class="ml-2 btn-danger"
+      >Cancel Edit</i-button
+    >
 
-      <Link href="/" v-if="!edit_form" class="btn btn-primary me-2">
-        <i class="bi bi-house"></i> Home
-      </Link>
-
-      <Link href="/pig/2022/assessment-forms" v-if="!edit_form" preserve-scroll>
-        <a class="btn btn-primary">View Encoded Forms</a>
-      </Link>
-
-      <Link href="/pig/2022/assessment-forms" v-if="edit_form">
-        <a class="btn btn-danger">Cancel Edit</a>
-      </Link>
-      <!-- <Link href="/pig/2022/assessment-forms" class="btn btn-danger">Cancel Edit</Link> -->
-
-      <!-- <button class="btn btn-danger ms-3" v-if="edit_form">Cancel Edit</button> -->
-
-      <form method="post" @submit.prevent="submit()">
-        <h3 class="text-center mb-5">
+    <form method="post" @submit.prevent="submit()" class="mt-5 mx-20">
+      <!-- <h1 class="text-center mb-5 font-semibold text-xl uppercase">
           Agri-extension Competency Gap Assessment Form
-        </h3>
-        <!-- name row start -->
-        <div class="row">
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="addon-wrapping"
-                >Pangalan:</span
-              >
-              <input
-                type="text"
-                class="form-control"
-                placeholder="e.g. Josephine S. Amerila"
-                aria-label="Pangalan"
-                aria-describedby="addon-wrapping"
-                :value="form.name.toUpperCase()"
-                @input="form.name = $event.target.value.toUpperCase()"
-                required
-              />
-            </div>
-          </div>
-          <div class="col">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="addon-wrapping"
-                >Function/Title:</span
-              >
-              <input
-                type="text"
-                class="form-control"
-                placeholder="e.g. Sugarcane Technician XXX"
-                aria-label="Function/Title"
-                aria-describedby="addon-wrapping"
-                :value="form.function_title.toUpperCase()"
-                @input="form.function_title = $event.target.value.toUpperCase()"
-                required
-              />
-            </div>
-          </div>
-        </div>
-        <!-- name row end -->
-        <!-- kadugayon start -->
-        <div class="row pt-2">
-          <div class="col">
-            <div class="input-group">
-              <span class="input-group-text"
-                >Kadugayon sa serbisyo sa agri-extension:</span
-              >
-              <input
-                type="number"
-                min="0"
-                aria-label="YOS AGRIEXT YRS"
-                class="form-control"
-                placeholder="0"
-                v-model="form.yos_agri_extension"
-              />
-              <span class="input-group-text bg-white text-secondary"
-                >Year/s</span
-              >
-              <input
-                type="number"
-                min="0"
-                aria-label="YOS AGRIEXT MOS"
-                class="form-control"
-                placeholder="0"
-                v-model="form.mos_agri_extension"
-              />
-              <span class="input-group-text bg-white text-secondary"
-                >Month/s</span
-              >
-            </div>
-          </div>
-          <div class="col">
-            <div class="input-group">
-              <span class="input-group-text">Kadugayon sa posisyon karun:</span>
-              <input
-                type="number"
-                min="0"
-                aria-label="YOS AGRIEXT YRS"
-                class="form-control"
-                placeholder="0"
-                v-model="form.yos_current_position"
-              />
-              <span class="input-group-text bg-white text-secondary"
-                >Year/s</span
-              >
-              <input
-                type="number"
-                min="0"
-                aria-label="YOS AGRIEXT MOS"
-                class="form-control"
-                placeholder="0"
-                v-model="form.mos_current_position"
-              />
-              <span class="input-group-text bg-white text-secondary"
-                >Month/s</span
-              >
-            </div>
-          </div>
-        </div>
-        <!-- kadugayon end -->
-        <!-- bio info start -->
-        <div class="row pt-2">
-          <div class="col-2">
-            <div class="input-group flex-nowrap">
-              <span class="input-group-text" id="addon-wrapping">Edad:</span>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Edad"
-                aria-label="Edad"
-                aria-describedby="addon-wrapping"
-                v-model="form.age"
-              />
-            </div>
-          </div>
-          <div class="col-6">
-            <!-- gender start -->
-            <div class="input-group">
-              <label class="input-group-text me-2">Gender:</label>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gender"
-                  id="maleRadio"
-                  value="male"
-                  v-model="form.gender"
-                />
-                <label class="form-check-label" for="maleRadio">Male</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gender"
-                  id="femaleRadio"
-                  value="female"
-                  v-model="form.gender"
-                  required
-                />
-                <label class="form-check-label" for="femaleRadio">Female</label>
-              </div>
-            </div>
-            <!-- gender end -->
-          </div>
-        </div>
-        <!-- bio info end -->
-        <div class="mt-5"></div>
-        <!-- competencies start -->
-        <div v-for="(competency, i) in competencies" :key="competency.id">
-          <h5>
-            {{ letters[i].toUpperCase() }}. {{ get_title(competency.id) }}
-          </h5>
-          <ol>
-            <li v-for="(question, q) in competency.questions" :key="q">
-              {{ question.question }}
-              <br />
-              <!-- {{ `${letters[i]}_${competency.id}_${q}` }}
-              <br /> -->
-              <div
-                class="form-check form-check-inline"
-                v-for="(choice, c) in question.choices"
-                :key="c"
-              >
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  :name="`${competency.id + q}`"
-                  :id="`${competency.id + q + c}`"
-                  :value="choice"
-                  v-model="
-                    form.competencies[`${letters[i]}_${competency.id}_${q}`]
-                  "
-                />
-                <!-- v-model="form.competencies[i+q]" -->
-                <label
-                  class="form-check-label"
-                  :for="`${competency.id + q + c}`"
-                  >{{ `${choice[0].toUpperCase()}${choice.slice(1)}` }}</label
-                >
-              </div>
-            </li>
-          </ol>
-        </div>
-        <!-- competencies end -->
-        <!-- additional info start -->
+        </h1> -->
+      <div class="md:flex md:items-center mb-6">
+        <div class="m-1 md:w-1/2">
+          <i-label>Pangalan:</i-label>
+          <i-input
+            class="uppercase"
+            type="text"
+            placeholder="e.g. Josephine S. Amerila"
+            v-model="form.name"
+            required
+          />
 
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label"
-            ><h5>
-              I. Kung aduna kay ikadugang nga mga kahanas nga gikinahanglan sa
-              agri-extension, apan wala gilista sa ibabaw, palihug isulat kini
-              sa luna sa ubos.
-            </h5></label
+          <!-- :value="form.name.toUpperCase()"
+            @input="form.name = $event.target.value.toUpperCase()" -->
+        </div>
+        <div class="m-1 md:w-1/2">
+          <i-label>Function/Title:</i-label>
+          <i-input
+            class="uppercase"
+            type="text"
+            placeholder="e.g. Sugarcane Technician XXX"
+            v-model="form.function_title"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="md:flex md:items-center">
+        <div class="m-1 md:w-1/2">
+          <i-label>Kadugayon sa serbisyo sa agri-extension:</i-label>
+
+          <div class="md:flex md:items-center mb-6">
+            <i-input
+              class="m-1"
+              type="number"
+              min="0"
+              placeholder="Years"
+              v-model="form.yos_agri_extension"
+            />
+
+            <i-input
+              class="m-1"
+              type="number"
+              min="0"
+              placeholder="Months"
+              v-model="form.mos_agri_extension"
+            />
+          </div>
+        </div>
+        <div class="m-1 md:w-1/2">
+          <i-label>Kadugayon sa posisyon karun:</i-label>
+          <div class="md:flex md:items-center mb-6">
+            <i-input
+              type="number"
+              min="0"
+              class="m-1"
+              placeholder="Years"
+              v-model="form.yos_current_position"
+            />
+            <i-input
+              type="number"
+              min="0"
+              class="m-1"
+              placeholder="Months"
+              v-model="form.mos_current_position"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- bio info start -->
+      <div class="md:flex md:items-center mb-6">
+        <div class="m-1 md:w-1/8">
+          <i-label>Edad:</i-label>
+          <i-input
+            type="number"
+            min="0"
+            class="m-1"
+            placeholder="Edad"
+            v-model="form.age"
+          />
+        </div>
+        <div class="m-1 ml-10 md:w-2/8">
+          <div class="_inline-flex">
+            <i-label class="mr-3">Gender:</i-label>
+            <br />
+            <input
+              type="radio"
+              name="gender"
+              id="maleRadio"
+              value="male"
+              v-model="form.gender"
+              class="ml-5 mt-1.5 scale-150 flex-1"
+            />
+            <i-label class="flex-1 mx-2" for="maleRadio">Male</i-label>
+
+            <input
+              type="radio"
+              name="gender"
+              id="femaleRadio"
+              value="female"
+              v-model="form.gender"
+              required
+              class="mt-1.5 scale-150 flex-1"
+            />
+            <i-label class="flex-1 mx-2" for="femaleRadio">Female</i-label>
+          </div>
+        </div>
+      </div>
+      <!-- bio info end -->
+      <div class="mt-5"></div>
+      <!-- competencies start -->
+      <div v-for="(competency, i) in competencies" :key="competency.id">
+        <span class="uppercase font-bold"
+          >{{ letters[i] }}. {{ competency.id }}</span
+        >
+        <ol>
+          <li
+            class="ml-5"
+            v-for="(question, q) in competency.questions"
+            :key="q"
           >
-          <textarea
-            class="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-            placeholder="..."
-            v-model="form.i_additional_information"
-          ></textarea>
-        </div>
+            {{ `${q + 1}. ${question.question}` }}
+            <br />
+            <!-- choices radio button start -->
+            <div
+              class="inline-flex ml-5"
+              v-for="(choice, c) in question.choices"
+              :key="c"
+            >
+              <input
+                class="mt-1.5 scale-150 flex-1"
+                type="radio"
+                :name="`${competency.id + q}`"
+                :id="`${competency.id + q + c}`"
+                :value="choice"
+                v-model="
+                  form.competencies[`${letters[i]}_${competency.id}_${q}`]
+                "
+              />
+              <label class="flex-1 mx-2" :for="`${competency.id + q + c}`">{{
+                `${choice[0].toUpperCase()}${choice.slice(1)}`
+              }}</label>
+            </div>
+            <!-- choices radio button end -->
+          </li>
+        </ol>
+      </div>
+      <!-- competencies end -->
+      <!-- additional info start -->
 
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label"
-            ><h5>
-              J. Unsa ang angay nga mga pamaagi aron makuha ang nahisgutan sa
-              itaas nga mga core competencies? Palihug i-rate ang matag paagi o
-              mekanismo sa sukod nga gihatag sa ubos.
-            </h5></label
-          >
+      <div class="mb-3">
+        <label for="textarea1" class="form-label"
+          ><h5>
+            I. Kung aduna kay ikadugang nga mga kahanas nga gikinahanglan sa
+            agri-extension, apan wala gilista sa ibabaw, palihug isulat kini sa
+            luna sa ubos.
+          </h5></label
+        >
+        <i-textarea
+          id="textarea1"
+          rows="3"
+          placeholder="..."
+          v-model="form.i_additional_information"
+        ></i-textarea>
+      </div>
 
-          <!-- table start -->
-          <table class="table table-bordered mx-auto" style="font-size: 24px">
-            <thead>
+      <div class="mb-3">
+        <label class="form-label"
+          ><h5>
+            J. Unsa ang angay nga mga pamaagi aron makuha ang nahisgutan sa
+            itaas nga mga core competencies? Palihug i-rate ang matag paagi o
+            mekanismo sa sukod nga gihatag sa ubos.
+          </h5></label
+        >
+
+        <!-- table start -->
+        <div class="flex justify-center">
+          <table class="border" style="">
+            <thead class="border-b">
               <tr>
-                <th>Mga pamaagi arun makuha ang core competencies</th>
-                <th>Dili Angay</th>
-                <th>Medyo Angay</th>
-                <th>Angay</th>
-                <th>Angayan Kaayo</th>
+                <td></td>
+                <th scope="col" class="border-r">
+                  Mga pamaagi arun makuha ang core competencies
+                </th>
+                <th scope="col" class="border-r">Dili Angay</th>
+                <th scope="col" class="border-r">Medyo Angay</th>
+                <th scope="col" class="border-r">Angay</th>
+                <th scope="col" class="border-r">Angayan Kaayo</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, j) in j_additional_questions" :key="j">
-                <td>{{ j + 1 + ". " + item.question }}</td>
+              <tr
+                class="border"
+                v-for="(item, j) in j_additional_questions"
+                :key="j"
+              >
+                <td scope="col" class="border-r w-5">
+                  <span class="p-2">{{ j + 1 }}.</span>
+                </td>
+                <td scope="col" class="border-r">
+                  <span class="p-2">{{ item.question }}</span>
+                </td>
                 <td
+                  scope="col"
+                  class="border-r text-center"
                   v-for="(choice, c) in item.choices"
                   :key="c"
                   style="width: 50px"
                 >
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      :name="`j_item_${j}`"
-                      :value="choice"
-                      v-model="
-                        form.j_additional_information[
-                          `j_additional_information_${j}`
-                        ]
-                      "
-                    />
-                  </div>
+                  <!-- <div class="form-check"> -->
+                  <input
+                    class="mt-1.5 scale-150 flex-1"
+                    type="radio"
+                    :name="`j_item_${j}`"
+                    :value="choice"
+                    v-model="
+                      form.j_additional_information[
+                        `j_additional_information_${j}`
+                      ]
+                    "
+                  />
+                  <!-- </div> -->
                 </td>
               </tr>
             </tbody>
           </table>
-          <!-- table end -->
         </div>
+        <!-- table end -->
+      </div>
 
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">
-            <h5>
-              K. Kung magrekomenda ka ug tulo pa nga mga kalihokan o programa
-              aron mapauswag ang mga core competencies sa mga agri-extension
-              professionals unsa ang imong mga rekomendasyon?
-            </h5>
-          </label>
-          <textarea
-            class="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-            placeholder="..."
-            v-model="form.k_additional_information"
-          ></textarea>
-        </div>
+      <div class="mb-3">
+        <label for="textarea2" class="form-label">
+          <h5>
+            K. Kung magrekomenda ka ug tulo pa nga mga kalihokan o programa aron
+            mapauswag ang mga core competencies sa mga agri-extension
+            professionals unsa ang imong mga rekomendasyon?
+          </h5>
+        </label>
+        <i-textarea
+          id="textarea2"
+          rows="3"
+          placeholder="..."
+          v-model="form.k_additional_information"
+        ></i-textarea>
+      </div>
 
-        <button
-          :disabled="form.processing"
-          class="btn btn-primary"
-          type="submit"
-        >
-          Submit
-        </button>
+      <i-button class="btn-primary" :disabled="form.processing" type="submit"> Submit </i-button>
 
-        <!-- additional info end -->
-      </form>
-      <!-- container end -->
-    </div>
+      <!-- additional info end -->
+    </form>
+    <!-- container end -->
 
-    <!-- toast start -->
-    <AppToast
-      ref="successToast"
-      color="text-white bg-success"
-      icon="bi bi-check-circle me-2"
-      title="Form Saved!"
-      msg="Form saved successfully!"
-    />
-    <!-- toast end -->
     <!-- ################################# -->
   </div>
 </template>
 
 <script>
-import BreezeApplicationLogo from "@/Components/ApplicationLogo";
-// import { Link } from "@inertiajs/inertia-vue3";
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ * */
+
+import ILabel from "@/Components/Label";
+import IInput from "@/Components/Input";
+import IButton from "@/Components/Button";
+import ITextarea from "@/Components/Textarea";
 import { Link } from "@inertiajs/inertia-vue3";
-import AppToast from "../../../Components/Toast.vue";
+
 export default {
   props: {
     edit_status: String, //created, updated, or deleted
     edit_form: Object,
   },
   components: {
-    BreezeApplicationLogo,
     Link,
-    AppToast,
+    ILabel,
+    IInput,
+    IButton,
+    ITextarea,
   },
   data() {
     return {
@@ -634,21 +606,13 @@ export default {
     },
     submit() {
       this.form.post("/pig/2022/assessment-form", {
-        replace: true,
-        onSuccess: (page) => {
-          this.form.reset();
-          if (this.edit_status == "created") {
-            window.scrollTo(0, 0);
-            AppToast.methods.toast_save();
-          }
-        },
+        onSuccess: () => this.form.reset(),
       });
     },
     set_edit_form() {
       if (!this.edit_form) return false;
       this.form = this.$inertia.form(this.edit_form);
     },
-
   },
   mounted() {
     // console.log(this.$refs.successToast.toast_save());

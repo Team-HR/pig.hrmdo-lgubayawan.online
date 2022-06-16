@@ -1,40 +1,37 @@
 <template>
-  <div class="position-absolute top-0 min-vh-100 min-vw-100 bg-light">
-    <!-- ################################# -->
+  <!-- <pig-layout> -->
+  <div class="container mx-auto px-10 mt-2">
 
-    <div class="container mx-auto">
-      <div class="card m-5">
-        <!-- <img src="" class="card-img-top" alt="..." /> -->
-        <div class="card-body">
-          <h1 class="card-title">
-            {{
-              "Competency Gap Assessment on Agri-Extension Technicians of LGU Bayawan City".toUpperCase()
-            }}
-          </h1>
-          <h3 class="card-subtitle mb-2 text-muted">2022 VAC:PIG</h3>
+<!-- Jumbotron -->
+<div class="p-6 shadow-lg rounded-lg bg-gray-100 text-gray-700">
+  <h2 class="font-semibold text-3xl mb-5">VAC:PIG 2022</h2>
+  <p>
+          {{
+            "Competency Gap Assessment on Agri-Extension Technicians of LGU Bayawan City".toUpperCase()
+          }}
+  </p>
+  <hr class="my-6 border-gray-300" />
 
-          <p class="card-text">
-            <!-- Some quick example text to build on the card title and make up the
-            bulk of the card's content. -->
-          </p>
-          <!-- <a href="#" class="btn btn-success">Go to Assessment Form</a> -->
-          <Link href="/pig/2022/assessment-form" class="btn btn-success">
-            Go to Assessment Form
-          </Link>
+        <i-button
+          @click="$inertia.get('/pig/2022/assessment-form')"
+          class="btn-primary ml-5 mr-5"
+          >Assessment Form</i-button
+        >
 
-          <a href="#" class="btn btn-primary disabled ms-2">Go to Report</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ################################# -->
+        <i-button class="btn-success" disabled> Reports </i-button>
+</div>
+<!-- Jumbotron -->
   </div>
+  <!-- </pig-layout> -->
 </template>
 <script>
-import { Link } from "@inertiajs/inertia-vue3";
+import PigLayout from "@/Layouts/Pig.vue";
+import IButton from "@/Components/Button";
+
 export default {
   components: {
-    Link,
+    PigLayout,
+    IButton,
   },
 };
 </script>
