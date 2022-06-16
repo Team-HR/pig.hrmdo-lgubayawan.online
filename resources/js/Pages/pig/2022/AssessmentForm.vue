@@ -122,7 +122,7 @@
               value="female"
               v-model="form.gender"
               required
-              class="mt-1.5 scale-150 flex-1"
+              class="mt-1.5 scale-150 flex-1 accent-pink-500"
             />
             <i-label class="flex-1 mx-2" for="femaleRadio">Female</i-label>
           </div>
@@ -150,7 +150,7 @@
               :key="c"
             >
               <input
-                class="mt-1.5 scale-150 flex-1"
+                class="mt-1.5 flex-1 accent-purple-700"
                 type="radio"
                 :name="`${competency.id + q}`"
                 :id="`${competency.id + q + c}`"
@@ -158,8 +158,9 @@
                 v-model="
                   form.competencies[`${letters[i]}_${competency.id}_${q}`]
                 "
+                style="transform: scale(2)"
               />
-              <label class="flex-1 mx-2" :for="`${competency.id + q + c}`">{{
+              <label class="flex-1 mx-2 text-gray-700" :for="`${competency.id + q + c}`">{{
                 `${choice[0].toUpperCase()}${choice.slice(1)}`
               }}</label>
             </div>
@@ -231,7 +232,7 @@
                 >
                   <!-- <div class="form-check"> -->
                   <input
-                    class="mt-1.5 scale-150 flex-1"
+                    class="mt-1.5 scale-150 flex-1 accent-purple-700"
                     type="radio"
                     :name="`j_item_${j}`"
                     :value="choice"
@@ -240,6 +241,7 @@
                         `j_additional_information_${j}`
                       ]
                     "
+                    style="transform:scale(2)"
                   />
                   <!-- </div> -->
                 </td>
