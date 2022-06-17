@@ -1,8 +1,10 @@
 <template>
   <auth-layout>
     <div class="container justify-center w-full">
-      <div class="w-1/2 mx-auto m-10 shadow-xl p-10 rounded-lg">
-        <div class="text-xl text-teal-500">You're logged in!</div>
+      <div class="mx-auto mt-10 shadow-lg p-10 rounded-lg">
+        <!-- container start -->
+        {{ periods }}
+        <!-- container end -->
       </div>
     </div>
   </auth-layout>
@@ -12,6 +14,9 @@
 import AuthLayout from "@/Layouts/Authenticated";
 
 export default {
+  props: {
+    periods: Array,
+  },
   components: {
     AuthLayout,
   },

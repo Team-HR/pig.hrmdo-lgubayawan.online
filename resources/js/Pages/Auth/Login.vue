@@ -10,10 +10,10 @@
     <div class="flex mb-5">
       <i-label for="username" class="mt-2 mr-5 text-right">Username</i-label>
       <i-input
-        type="email"
+        type="text"
         id="username"
         class=""
-        v-model="form.email"
+        v-model="form.username"
         required
         autofocus
         autocomplete="username"
@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        email: "",
+        username: "",
         password: "",
         remember: false,
       }),

@@ -1,6 +1,6 @@
 <template>
   <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-    <div class="flex items-center flex-shrink-0 text-white mr-6">
+    <button @click="$inertia.get('/')" class="flex items-center flex-shrink-0 text-white mr-6">
       <svg
         class="fill-current h-8 w-8 mr-2"
         width="54"
@@ -13,7 +13,7 @@
         />
       </svg>
       <span class="font-semibold text-xl tracking-tight">{{ `PMS` }}</span>
-    </div>
+    </button>
     <div class="block lg:hidden">
       <button
         class="
