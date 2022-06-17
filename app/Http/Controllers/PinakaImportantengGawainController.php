@@ -17,6 +17,11 @@ class PinakaImportantengGawainController extends Controller
         return Inertia::render('pig/2022/AssessmentForm');
     }
 
+    public function report()
+    {
+        return Inertia::render('pig/2022/Report');
+    }
+
     public function assessment_form_edit($id)
     {
         $form = AgriExtensionCompetenciesRecord::find($id);

@@ -1,7 +1,9 @@
 <template>
   <div class="container mx-auto px-10 mt-2 mb-10">
     <!-- ################################# -->
-    <i-button class="btn-primary" @click="$inertia.get('/')" v-if="!edit_form">Home</i-button>
+    <i-button class="btn-primary" @click="$inertia.get('/')" v-if="!edit_form"
+      >Home</i-button
+    >
     <i-button
       @click="$inertia.get('/pig/2022/assessment-forms')"
       v-if="!edit_form"
@@ -16,10 +18,14 @@
       >Cancel Edit</i-button
     >
 
+    <i-toast ref="successToast">Saved!</i-toast>
+
     <form method="post" @submit.prevent="submit()" class="mt-5 mx-20">
-      <!-- <h1 class="text-center mb-5 font-semibold text-xl uppercase">
+      <!-- 
+        <h1 class="text-center mb-5 font-semibold text-xl uppercase">
           Agri-extension Competency Gap Assessment Form
-        </h1> -->
+        </h1> 
+      -->
       <div class="md:flex md:items-center mb-6">
         <div class="m-1 md:w-1/2">
           <i-label>Pangalan:</i-label>
@@ -31,8 +37,10 @@
             required
           />
 
-          <!-- :value="form.name.toUpperCase()"
-            @input="form.name = $event.target.value.toUpperCase()" -->
+          <!-- 
+            :value="form.name.toUpperCase()"
+            @input="form.name = $event.target.value.toUpperCase()" 
+          -->
         </div>
         <div class="m-1 md:w-1/2">
           <i-label>Function/Title:</i-label>
@@ -160,9 +168,11 @@
                 "
                 style="transform: scale(2)"
               />
-              <label class="flex-1 mx-2 text-gray-700" :for="`${competency.id + q + c}`">{{
-                `${choice[0].toUpperCase()}${choice.slice(1)}`
-              }}</label>
+              <label
+                class="flex-1 mx-2 text-gray-700"
+                :for="`${competency.id + q + c}`"
+                >{{ `${choice[0].toUpperCase()}${choice.slice(1)}` }}</label
+              >
             </div>
             <!-- choices radio button end -->
           </li>
@@ -241,7 +251,7 @@
                         `j_additional_information_${j}`
                       ]
                     "
-                    style="transform:scale(2)"
+                    style="transform: scale(2)"
                   />
                   <!-- </div> -->
                 </td>
@@ -268,7 +278,9 @@
         ></i-textarea>
       </div>
 
-      <i-button class="btn-primary" :disabled="form.processing" type="submit"> Submit </i-button>
+      <i-button class="btn-primary" :disabled="form.processing" type="submit">
+        Submit
+      </i-button>
 
       <!-- additional info end -->
     </form>
@@ -292,6 +304,8 @@ import ILabel from "@/Components/Label";
 import IInput from "@/Components/Input";
 import IButton from "@/Components/Button";
 import ITextarea from "@/Components/Textarea";
+import IToast from "@/Components/Toast";
+
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
@@ -305,9 +319,11 @@ export default {
     IInput,
     IButton,
     ITextarea,
+    IToast,
   },
   data() {
     return {
+      status: false,
       form: this.$inertia.form({
         id: "",
         name: "",
@@ -608,7 +624,12 @@ export default {
     },
     submit() {
       this.form.post("/pig/2022/assessment-form", {
-        onSuccess: () => this.form.reset(),
+        onSuccess: () => {
+          this.form.reset();
+          if (this.edit_status == "created") {
+            this.$refs.successToast.showToast();
+          }
+        },
       });
     },
     set_edit_form() {

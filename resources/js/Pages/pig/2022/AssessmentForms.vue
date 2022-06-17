@@ -2,14 +2,17 @@
   <!-- ################################# -->
   <div class="container px-10 mt-2">
     <!-- container start -->
+    <i-toast ref="successToast">Updated!</i-toast>
 
     <i-button
       @click="$inertia.get('/pig/2022/assessment-form')"
       class="btn-success"
       >Add New</i-button
     >
-    <div class=" w-8/12 mx-auto">
-      <h1 class="mt-5 font-bold text-xl">Your Encoded Forms ({{ encoded_forms.length }})</h1>
+    <div class="w-8/12 mx-auto">
+      <h1 class="mt-5 font-bold text-xl">
+        Your Encoded Forms ({{ encoded_forms.length }})
+      </h1>
       <table class="table-celled w-full">
         <thead>
           <tr>
@@ -32,7 +35,9 @@
         </tbody>
       </table>
 
-      <h1 class="mt-5 font-bold text-xl">All Encoded Forms ({{ all_encoded_forms.length }})</h1>
+      <h1 class="mt-5 font-bold text-xl">
+        All Encoded Forms ({{ all_encoded_forms.length }})
+      </h1>
       <table class="table-celled w-full">
         <thead>
           <tr>
@@ -63,6 +68,7 @@
 <script>
 import { Link } from "@inertiajs/inertia-vue3";
 import IButton from "@/Components/Button.vue";
+import IToast from "@/Components/Toast";
 
 export default {
   props: {
@@ -73,6 +79,7 @@ export default {
   components: {
     Link,
     IButton,
+    IToast
   },
   data() {
     return {};
@@ -89,7 +96,7 @@ export default {
   },
   mounted() {
     if (this.edit_status == "updated") {
-      // this.$refs.successToast.toast_save();
+        this.$refs.successToast.showToast();
     }
   },
 };
