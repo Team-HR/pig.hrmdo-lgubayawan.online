@@ -5,11 +5,11 @@
     class="
       inline-block
       px-6
-      py-2.5
+      py-3
       bg-grey-500
       text-grey-900
       font-medium
-      text-xs
+      text-md
       leading-tight
       uppercase
       rounded

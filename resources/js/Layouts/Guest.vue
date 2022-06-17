@@ -1,36 +1,58 @@
 <template>
-    <div class="position-absolute top-0 min-vh-100 min-vw-100 bg-light">
-        <div class="container">
-            <div class="mt-5">
-                <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <inertia-link href="/">
-                            <breeze-application-logo style="width: 100px; height: 100px;" />
-                        </inertia-link>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-6 offset-3">
-                        <div class="card shadow-sm p-3 mb-5 bg-body rounded">
-                            <div class="card-body">
-                                <slot />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
+  <navbar>
+    <template #links>
+      <!-- <a
+        href="#responsive-header"
+        class="
+          block
+          mt-4
+          lg:inline-block lg:mt-0
+          text-teal-100
+          hover:text-white
+          mr-4
+        "
+      >
+        Rating Scale Matrix
+      </a> -->
+    </template>
+    <template #right-items>
+      <inertia-link
+        href="login"
+        class="
+          block
+          mt-4
+          lg:inline-block lg:mt-0
+          text-teal-100
+          hover:text-white
+          mr-4
+        "
+      >
+        Login
+      </inertia-link>
+      <inertia-link
+        href="register"
+        class="
+          block
+          mt-4
+          lg:inline-block lg:mt-0
+          text-teal-100
+          hover:text-white
+          mr-4
+        "
+      >
+        Register
+      </inertia-link>
+    </template>
+  </navbar>
+  <div class="container mx-auto px-4">
+    <slot />
+  </div>
 </template>
-
 <script>
-import BreezeApplicationLogo from '@/Components/ApplicationLogo'
-
+import Navbar from "@/Components/Navbar.vue";
 export default {
-    components: {
-        BreezeApplicationLogo,
-    }
-}
+  components: {
+    Navbar,
+  },
+};
 </script>
-
