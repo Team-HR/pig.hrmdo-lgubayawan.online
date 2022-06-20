@@ -43,15 +43,22 @@
             @input="form.name = $event.target.value.toUpperCase()" 
           -->
         </div>
-        <div class="m-1 md:w-1/2">
+        <div class="m-1 md:w-1/2 relative">
           <i-label>Function/Title:</i-label>
-          <i-input
+          <!-- <i-input
             class="uppercase"
             type="text"
             placeholder="e.g. Sugarcane Technician XXX"
             v-model="form.function_title"
             required
-          />
+          /> -->
+          <i-autocomplete
+            class="uppercase"
+            v-model="form.function_title"
+            placeholder="e.g. Sugarcane Technician XXX"
+            :datasets="function_titles"
+            required
+          ></i-autocomplete>
         </div>
       </div>
 
@@ -307,14 +314,18 @@ import IButton from "@/Components/Button";
 import ITextarea from "@/Components/Textarea";
 import IToast from "@/Components/Toast";
 import GuestLayout from "@/Layouts/Guest.vue";
+import IAutocomplete from "@/Components/Autocomplete";
+
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
   props: {
+    distinct_function_titles: Array,
     edit_status: String, //created, updated, or deleted
     edit_form: Object,
   },
   components: {
+    IAutocomplete,
     GuestLayout,
     Link,
     ILabel,
@@ -325,6 +336,7 @@ export default {
   },
   data() {
     return {
+      function_titles: [],
       status: false,
       form: this.$inertia.form({
         id: "",
@@ -639,8 +651,11 @@ export default {
       this.form = this.$inertia.form(this.edit_form);
     },
   },
+  created() {
+    this.function_titles = this.distinct_function_titles;
+  },
   mounted() {
-    // console.log(this.$refs.successToast.toast_save());
+    // console.log(this.function_titles = this.distinct_function_titles);
     this.set_edit_form();
   },
 };

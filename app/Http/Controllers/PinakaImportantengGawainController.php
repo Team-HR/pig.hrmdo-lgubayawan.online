@@ -8,17 +8,37 @@ use App\Models\AgriExtensionCompetenciesRecord;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Inertia\Inertia;
+// use Illuminate\Support\Facades\DB;
 
 class PinakaImportantengGawainController extends Controller
 {
 
     public function assessment_form()
     {
-        return Inertia::render('pig/2022/AssessmentForm');
+
+
+        $records = AgriExtensionCompetenciesRecord::select('function_title')->distinct()->get();
+
+        $distinct_function_titles = [];
+        foreach ($records as $value) {
+            $distinct_function_titles[] = [
+                "label" => mb_convert_case($value["function_title"], MB_CASE_UPPER),
+                "value" => $value["function_title"]
+            ];
+        }
+
+        // $distinct_function_titles = [
+        //     [
+        //         'label' => 'test1',
+        //         'value' => 'test1'
+        //     ]
+        // ];
+        return Inertia::render('pig/2022/AssessmentForm', ['distinct_function_titles' => $distinct_function_titles]);
     }
 
     public function report()
     {
+
         return Inertia::render('pig/2022/Report');
     }
 

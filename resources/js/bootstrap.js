@@ -34,3 +34,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import 'tw-elements';
+
