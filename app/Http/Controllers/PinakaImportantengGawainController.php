@@ -15,25 +15,19 @@ class PinakaImportantengGawainController extends Controller
 
     public function assessment_form()
     {
+        return Inertia::render('pig/2022/AssessmentForm', ['distinct_function_titles' => $this->get_distinct_function_titles()]);
+    }
 
-
+    private function get_distinct_function_titles()
+    {
         $records = AgriExtensionCompetenciesRecord::select('function_title')->distinct()->get();
 
         $distinct_function_titles = [];
         foreach ($records as $value) {
-            $distinct_function_titles[] = [
-                "label" => mb_convert_case($value["function_title"], MB_CASE_UPPER),
-                "value" => $value["function_title"]
-            ];
+            $distinct_function_titles[] = $value["function_title"];
         }
 
-        // $distinct_function_titles = [
-        //     [
-        //         'label' => 'test1',
-        //         'value' => 'test1'
-        //     ]
-        // ];
-        return Inertia::render('pig/2022/AssessmentForm', ['distinct_function_titles' => $distinct_function_titles]);
+        return $distinct_function_titles;
     }
 
     public function report()
@@ -114,14 +108,15 @@ class PinakaImportantengGawainController extends Controller
         return Inertia::render(
             'pig/2022/AssessmentForm',
             [
-                "edit_form" => $edit_form
+                "edit_form" => $edit_form,
+                'distinct_function_titles' => $this->get_distinct_function_titles()
             ]
         );
     }
 
     public function assessment_forms($edit_status = null)
     {
-        return Inertia::render('pig/2022/AssessmentForms', ["edit_status" => $edit_status, "encoded_forms" => $this->get_encoded_forms(), "all_encoded_forms" => $this->get_all_encoded_forms()]);
+        return Inertia::render('pig/2022/AssessmentForms', ["distinct_function_titles" => $this->get_distinct_function_titles(),"edit_status" => $edit_status, "encoded_forms" => $this->get_encoded_forms(), "all_encoded_forms" => $this->get_all_encoded_forms()]);
     }
 
 
@@ -255,7 +250,7 @@ class PinakaImportantengGawainController extends Controller
         $record->cookie_id = $form->cookie('laravel_session');
 
         $record->save();
-        return Inertia::render('pig/2022/AssessmentForm', ['edit_status' => 'created']);
+        return Inertia::render('pig/2022/AssessmentForm', ['distinct_function_titles' => $this->get_distinct_function_titles(),'edit_status' => 'created']);
         // return redirect('/pig/2022/assessment-form',[]);
     }
 
