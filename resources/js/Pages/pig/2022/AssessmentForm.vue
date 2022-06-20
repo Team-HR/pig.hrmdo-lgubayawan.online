@@ -1,4 +1,5 @@
 <template>
+  <guest-layout></guest-layout>
   <div class="container mx-auto px-10 mt-2 mb-10">
     <!-- ################################# -->
     <i-button class="btn-primary" @click="$inertia.get('/')" v-if="!edit_form"
@@ -305,7 +306,7 @@ import IInput from "@/Components/Input";
 import IButton from "@/Components/Button";
 import ITextarea from "@/Components/Textarea";
 import IToast from "@/Components/Toast";
-
+import GuestLayout from "@/Layouts/Guest.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
@@ -314,6 +315,7 @@ export default {
     edit_form: Object,
   },
   components: {
+    GuestLayout,
     Link,
     ILabel,
     IInput,

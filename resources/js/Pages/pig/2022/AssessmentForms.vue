@@ -1,6 +1,7 @@
 <template>
   <!-- ################################# -->
-  <div class="container px-10 mt-2">
+  <guest-layout></guest-layout>
+  <div class="container mx-auto px-10 mt-2 mb-10">
     <!-- container start -->
     <i-toast ref="successToast">Updated!</i-toast>
 
@@ -66,6 +67,8 @@
 </template>
 
 <script>
+import GuestLayout from "@/Layouts/Guest.vue";
+
 import { Link } from "@inertiajs/inertia-vue3";
 import IButton from "@/Components/Button.vue";
 import IToast from "@/Components/Toast";
@@ -77,6 +80,7 @@ export default {
     all_encoded_forms: Array,
   },
   components: {
+    GuestLayout,
     Link,
     IButton,
     IToast

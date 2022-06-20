@@ -16,7 +16,7 @@
       </a> -->
     </template>
     <template #right-items>
-      <inertia-link
+      <!-- <inertia-link
         href="login"
         class="
           block
@@ -41,7 +41,7 @@
         "
       >
         Register
-      </inertia-link>
+      </inertia-link> -->
     </template>
   </navbar>
   <div class="container mx-auto px-4">
