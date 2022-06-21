@@ -11,7 +11,7 @@
       >Add New</i-button
     >
     <div class="w-8/12 mx-auto">
-      <h1 class="mt-5 font-bold text-xl">
+      <!-- <h1 class="mt-5 font-bold text-xl">
         Your Encoded Forms ({{ encoded_forms.length }})
       </h1>
       <table class="table-celled w-full">
@@ -28,13 +28,12 @@
               <i-button class="btn-success" @click="edit_form(form.id)">
                 Edit
               </i-button>
-              <!-- <button class="btn btn-danger ms-3">Delete</button> -->
             </td>
             <td class="uppercase">{{ form.name }}</td>
             <td>{{ form.created_at }}</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
 
       <h1 class="mt-5 font-bold text-xl">
         All Encoded Forms ({{ all_encoded_forms.length }})
