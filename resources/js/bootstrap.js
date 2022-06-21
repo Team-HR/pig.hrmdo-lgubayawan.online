@@ -33,5 +33,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap-icons/font/bootstrap-icons.css';
 
-import 'tw-elements';
+// import 'tw-elements';
+
+// import "primevue/resources/themes/saga-blue/theme.css";
+import "primevue/resources/themes/tailwind-light/theme.css";
+import "primevue/resources/primevue.min.css";
+import "primeicons/primeicons.css";
+
+
 
