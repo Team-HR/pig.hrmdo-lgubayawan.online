@@ -11,7 +11,7 @@
       >Add New</i-button
     >
     <div class="w-8/12 mx-auto">
-      <h1 class="mt-5 font-bold text-xl">
+      <!-- <h1 class="mt-5 font-bold text-xl">
         Your Encoded Forms ({{ encoded_forms.length }})
       </h1>
       <table class="table-celled w-full">
@@ -33,7 +33,7 @@
             <td>{{ form.created_at }}</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
 
       <h1 class="mt-5 font-bold text-xl">
         All Encoded Forms ({{ all_encoded_forms.length }})
