@@ -8,7 +8,7 @@ use App\Models\AgriExtensionCompetenciesRecord;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Inertia\Inertia;
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PinakaImportantengGawainController extends Controller
 {
@@ -247,7 +247,7 @@ class PinakaImportantengGawainController extends Controller
         $record->j_additional_information_2 = isset($form->j_additional_information['j_additional_information_2']) ? $form->j_additional_information['j_additional_information_2'] : null;
         $record->j_additional_information_3 = isset($form->j_additional_information['j_additional_information_3']) ? $form->j_additional_information['j_additional_information_3'] : null;
         $record->k_additional_information = isset($form->k_additional_information) ? $form->k_additional_information : null;
-        $record->cookie_id = $form->cookie('laravel_session');
+        $record->cookie_id = Session::getId();
 
         $record->save();
         return Inertia::render('pig/2022/AssessmentForm', ['distinct_function_titles' => $this->get_distinct_function_titles(),'edit_status' => 'created']);
@@ -256,7 +256,7 @@ class PinakaImportantengGawainController extends Controller
 
     private function get_encoded_forms()
     {
-        $forms = AgriExtensionCompetenciesRecord::where('cookie_id', request()->cookie('laravel_session'))
+        $forms = AgriExtensionCompetenciesRecord::where('cookie_id', Session::getId())
             ->orderByDesc('updated_at')
             ->get();
         return count($forms) > 0 ? $forms : [];
