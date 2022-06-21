@@ -183,6 +183,25 @@
                 >{{ `${choice[0].toUpperCase()}${choice.slice(1)}` }}</label
               >
             </div>
+
+            <div class="inline-flex ml-10">
+              <input
+                class="mt-1.5 flex-1"
+                type="radio"
+                :name="`${competency.id + q}`"
+                :id="`${competency.id + q}_null`"
+                value=""
+                v-model="
+                  form.competencies[`${letters[i]}_${competency.id}_${q}`]
+                "
+                style="transform: scale(2)"
+              />
+              <label
+                class="flex-1 mx-2 text-gray-700"
+                :for="`${competency.id + q}_null`"
+                >{{ `N/I` }}</label
+              >
+            </div>
             <!-- choices radio button end -->
           </li>
         </ol>
@@ -228,6 +247,7 @@
                 <th scope="col" class="border-r">Medyo Angay</th>
                 <th scope="col" class="border-r">Angay</th>
                 <th scope="col" class="border-r">Angayan Kaayo</th>
+                <th scope="col" class="border-r">Not Indicated</th>
               </tr>
             </thead>
             <tbody>
@@ -610,20 +630,44 @@ export default {
       j_additional_questions: [
         {
           question: "Preservice training",
-          choices: ["dili_angay", "medyo_angay", "angay", "angayan_kaayo"],
+          choices: [
+            "dili_angay",
+            "medyo_angay",
+            "angay",
+            "angayan_kaayo",
+            "",
+          ],
         },
         {
           question: "In-service training",
-          choices: ["dili_angay", "medyo_angay", "angay", "angayan_kaayo"],
+          choices: [
+            "dili_angay",
+            "medyo_angay",
+            "angay",
+            "angayan_kaayo",
+            "",
+          ],
         },
         {
           question: "Basic induction training",
-          choices: ["dili_angay", "medyo_angay", "angay", "angayan_kaayo"],
+          choices: [
+            "dili_angay",
+            "medyo_angay",
+            "angay",
+            "angayan_kaayo",
+            "",
+          ],
         },
         {
           question:
             "National and international serminars, workshops, webinars, etc.",
-          choices: ["dili_angay", "medyo_angay", "angay", "angayan_kaayo"],
+          choices: [
+            "dili_angay",
+            "medyo_angay",
+            "angay",
+            "angayan_kaayo",
+            "",
+          ],
         },
       ],
     };
