@@ -26,7 +26,11 @@
           />
         </template>
       </Column>
-      <Column field="name" header="NAME"></Column>
+      <Column field="name" header="NAME">
+        <template #body="{ data }">
+          {{ data.name.toUpperCase() }}
+        </template>
+      </Column>
       <Column field="created_at" header="CREATED AT"></Column>
     </DataTable>
     <!-- ################################# -->
