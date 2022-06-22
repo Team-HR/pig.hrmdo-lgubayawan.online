@@ -1,71 +1,46 @@
 <template>
   <!-- ################################# -->
-  <guest-layout></guest-layout>
-  <div class="container mx-auto px-10 mt-2 mb-10">
-    <!-- container start -->
-    <i-toast ref="successToast">Updated!</i-toast>
-
-    <i-button
+  <!-- <guest-layout></guest-layout> -->
+  <pig>
+    <Button
+      class="my-5 bg-green-500"
+      label="Add New"
       @click="$inertia.get('/pig/2022/assessment-form')"
-      class="btn-success"
-      >Add New</i-button
-    >
-    <div class="w-8/12 mx-auto">
-      <!-- <h1 class="mt-5 font-bold text-xl">
-        Your Encoded Forms ({{ encoded_forms.length }})
-      </h1>
-      <table class="table-celled w-full">
-        <thead>
-          <tr>
-            <th width="200">OPTIONS</th>
-            <th>NAME</th>
-            <th class="w-80">CREATED AT</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="form in encoded_forms" :key="form.id">
-            <td class="text-center">
-              <i-button class="btn-success" @click="edit_form(form.id)">
-                Edit
-              </i-button>
-            </td>
-            <td class="uppercase">{{ form.name }}</td>
-            <td>{{ form.created_at }}</td>
-          </tr>
-        </tbody>
-      </table> -->
+    />
 
-      <h1 class="mt-5 font-bold text-xl">
-        All Encoded Forms ({{ all_encoded_forms.length }})
-      </h1>
-      <table class="table-celled w-full">
-        <thead>
-          <tr>
-            <th width="200">OPTIONS</th>
-            <th>NAME</th>
-            <th class="w-80">CREATED AT</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="form in all_encoded_forms" :key="form.id">
-            <td class="text-center">
-              <i-button class="btn-success" @click="edit_form(form.id)">
-                Edit
-              </i-button>
-              <!-- <button class="btn btn-danger ms-3">Delete</button> -->
-            </td>
-            <td class="uppercase">{{ form.name }}</td>
-            <td>{{ form.created_at }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- container end -->
-  </div>
-  <!-- ################################# -->
+    <h1>Accomplished Forms ({{ all_encoded_forms.length }})</h1>
+
+    <DataTable
+      :value="all_encoded_forms"
+      class="p-datatable-sm"
+      responsiveLayout="scroll"
+    >
+      <Column header="Edit">
+        <template #body="{ data }">
+          <Button
+            class="p-button-sm"
+            type="button"
+            icon="pi pi-pencil"
+            label="Edit"
+            @click="edit_form(data.id)"
+          />
+        </template>
+      </Column>
+      <Column field="name" header="NAME"></Column>
+      <Column field="created_at" header="CREATED AT"></Column>
+    </DataTable>
+    <!-- ################################# -->
+  </pig>
 </template>
 
 <script>
+// primevue components
+import Button from "primevue/button";
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+// pig layout
+import Pig from "@/Layouts/Pig.vue";
+
 import GuestLayout from "@/Layouts/Guest.vue";
 
 import { Link } from "@inertiajs/inertia-vue3";
@@ -79,15 +54,22 @@ export default {
     all_encoded_forms: Array,
   },
   components: {
+    Pig,
+    DataTable,
+    Column,
+    Button,
     GuestLayout,
     Link,
     IButton,
-    IToast
+    IToast,
   },
   data() {
     return {};
   },
   methods: {
+    test(test) {
+      console.log(test);
+    },
     edit_form(id) {
       this.$inertia.visit("/pig/2022/assessment-form/edit/" + id, {
         method: "GET",
@@ -99,7 +81,12 @@ export default {
   },
   mounted() {
     if (this.edit_status == "updated") {
-        this.$refs.successToast.showToast();
+      this.$toast.add({
+        severity: "success",
+        summary: "Updated!",
+        detail: "Form successfully updated!",
+        life: 2000,
+      });
     }
   },
 };

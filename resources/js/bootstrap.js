@@ -27,11 +27,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-// import bootstrap from 'bootstrap';
-// window.bootstrap = require('bootstrap');
+// primeflex for css utilities
+import "primeflex/primeflex.css";
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap-icons/font/bootstrap-icons.css';
-
-import 'tw-elements';
+// prime vue
+import "primevue/resources/themes/saga-blue/theme.css";
+// import "primevue/resources/themes/bootstrap4-light-blue/theme.css";
+import "primevue/resources/primevue.min.css";
+import "primeicons/primeicons.css";
 
