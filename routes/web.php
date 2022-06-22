@@ -4,7 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-
+use App\Models\AgriExtensionCompetenciesRecord;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +17,9 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    $record = AgriExtensionCompetenciesRecord::all();
+    $count = $record->count();
+    return Inertia::render('Welcome',['total_respondents' => $count]);
 });
 
 Route::get('/dashboard', function () {
