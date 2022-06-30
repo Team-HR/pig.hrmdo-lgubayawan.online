@@ -11,4 +11,4 @@ Route::get('/pig/2022/assessment-forms', [PinakaImportantengGawainController::cl
 Route::post('/pig/2022/assessment-form', [PinakaImportantengGawainController::class, 'assessment_form_store']);
 // Route::post('/', [PinakaImportantengGawainController::class, 'store_assessment']);
 
-Route::get('/pig/2022/report', [PinakaImportantengGawainController::class, 'report']);
+Route::get('/pig/2022/assessment-report', [PinakaImportantengGawainController::class, 'report']);

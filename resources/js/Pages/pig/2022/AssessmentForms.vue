@@ -1,6 +1,4 @@
 <template>
-  <!-- ################################# -->
-  <!-- <guest-layout></guest-layout> -->
   <pig>
     <Button
       class="my-5 bg-green-500"
@@ -33,7 +31,6 @@
       </Column>
       <Column field="created_at" header="CREATED AT"></Column>
     </DataTable>
-    <!-- ################################# -->
   </pig>
 </template>
 

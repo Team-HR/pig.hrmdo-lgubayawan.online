@@ -100,6 +100,10 @@ import TreeSelect from 'primevue/treeselect';
 import TreeTable from 'primevue/treetable';
 import TriStateCheckbox from 'primevue/tristatecheckbox';
 import VirtualScroller from 'primevue/virtualscroller';
+// CHART
+import Chart from 'primevue/chart';
+
+
 
 const el = document.getElementById('app');
 
@@ -117,6 +121,7 @@ createInertiaApp({
             .directive('badge', BadgeDirective)
             .directive('ripple', Ripple)
             .directive('styleclass', StyleClass)
+            .component('Chart', Chart)
             .component('Accordion', Accordion)
             .component('AccordionTab', AccordionTab)
             .component('AutoComplete', AutoComplete)
