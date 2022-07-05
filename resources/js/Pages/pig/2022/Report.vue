@@ -6,16 +6,21 @@
     <!-- {{ datasets }} -->
     <div>
       <div class="card">
-        <div class="font-bold uppercase text-2xl">Overall Report</div>
+        <div class="font-bold uppercase text-2xl">
+          Overall Competencies Report
+        </div>
         <Chart type="bar" :data="stacked_data" :options="stackedOptions" />
       </div>
 
+      <div class="font-bold uppercase text-2xl">
+        Detailed Competencies Report
+      </div>
       <div
         class="card mb-2"
         v-for="(competency, c) in chart_data"
         :key="competency.id"
       >
-        <span class="font-bold">{{
+        <span class="font-bold text-xl">{{
           `${c + 1} ${competency.id}`.toUpperCase()
         }}</span>
         <div
@@ -34,7 +39,16 @@
           />
         </div>
       </div>
+      <!-- j additional information report -->
 
+      <div class="card">
+        <div class="font-bold uppercase text-2xl">
+          Pamaagi arun makuha ang Core Competencies
+        </div>
+        <Chart type="bar" :data="stacked_data_j" :options="stackedOptions" />
+      </div>
+
+      <!-- j additional information report -->
       <!-- comments start -->
       <div class="card">
         <div class="font-bold uppercase text-2xl">Comments and Suggestions</div>
@@ -67,6 +81,7 @@ import Pig from "@/Layouts/Pig.vue";
 export default {
   props: {
     stacked_data: Object,
+    stacked_data_j: Object,
     chart_data: Array,
     i_additional_information: Array,
     k_additional_information: Array,
@@ -76,17 +91,6 @@ export default {
   },
   data() {
     return {
-      basicData: {
-        labels: ["Oo", "Medyo", "Wala"],
-        datasets: [
-          {
-            label: "My First dataset",
-            backgroundColor: "#42A5F5",
-            data: [65, 59, 80],
-          },
-        ],
-      },
-
       stackedOptions: {
         plugins: {
           tooltips: {
@@ -96,6 +100,9 @@ export default {
           legend: {
             labels: {
               color: "#495057",
+              font: {
+                size: 18
+              }
             },
           },
         },
@@ -104,6 +111,9 @@ export default {
             stacked: true,
             ticks: {
               color: "#495057",
+              font: {
+                size: 20
+              }
             },
             grid: {
               color: "#ebedef",

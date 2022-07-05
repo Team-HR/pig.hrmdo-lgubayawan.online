@@ -26,7 +26,7 @@
         <Button
           icon="pi pi-chart-bar"
           label="Reports (Work in Progress)"
-          class="p-button-secondary"
+          class="p-button bg-purple-500"
           style="margin-left: 0.5em"
           @click="$inertia.get('/pig/2022/assessment-report')"
         />

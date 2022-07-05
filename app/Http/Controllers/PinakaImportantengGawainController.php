@@ -526,8 +526,8 @@ class PinakaImportantengGawainController extends Controller
         $colors = [
             "oo" => "#42a5f5",
             "medyo" => "#2db900",
-            "dili" => "#7a7a7a",
-            "wala" => "#7a7a7a"
+            "dili" => "#ff4949",
+            "wala" => "#ff4949"
         ];
 
         $letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -541,7 +541,7 @@ class PinakaImportantengGawainController extends Controller
                     "datasets" => [
                         [
                             "label" => "",
-                            "backgroundColor" => ["#42A5F5", "#42A5F5", "#42A5F5"],
+                            "backgroundColor" => ["#42A5F5", "#42A5F5", "#ff4949"],
                             "data" => [],
                         ]
                     ],
@@ -584,7 +584,7 @@ class PinakaImportantengGawainController extends Controller
                 [
                     "type" => "bar",
                     "label" => "Wala/Dili",
-                    "backgroundColor" => "#d50000",
+                    "backgroundColor" => "#ff4949",
                     "respondents" => [],
                     "data" => []
                 ]
@@ -608,9 +608,6 @@ class PinakaImportantengGawainController extends Controller
                 if (!isset($stacked_data["datasets"][2]["respondents"][$key])) {
                     $stacked_data["datasets"][2]["respondents"][$key] = 0;
                 }
-                // if (!isset($stacked_data["totals"][$key])) {
-                //     $stacked_data["totals"][$key] = 0;
-                // }
 
                 $total = 0;
 
@@ -637,19 +634,16 @@ class PinakaImportantengGawainController extends Controller
             }
 
             // get respondents percentile for each datasets
-
             foreach ($stacked_data["datasets"] as $k => $choice) {
-                $stacked_data["datasets"][$k]["data"][$key] = round(($choice["respondents"][$key] / $stacked_data["totals"][$key])*100);
+                $stacked_data["datasets"][$k]["data"][$key] = round(($choice["respondents"][$key] / $stacked_data["totals"][$key]) * 100);
             }
         }
 
-        // foreach ($competencies as $key => $competency) {
-
-        // }
         $i_additional_information = $this->get_i_additional_information();
         $k_additional_information = $this->get_k_additional_information();
+        $stacked_data_j = $this->get_j_additional_information();
 
-        return Inertia::render('pig/2022/Report', ['stacked_data' => $stacked_data, 'chart_data' => $competencies, 'i_additional_information' => $i_additional_information, 'k_additional_information' => $k_additional_information]);
+        return Inertia::render('pig/2022/Report', ['stacked_data' => $stacked_data, 'stacked_data_j' => $stacked_data_j, 'chart_data' => $competencies, 'i_additional_information' => $i_additional_information, 'k_additional_information' => $k_additional_information]);
     }
 
     private function get_i_additional_information()
@@ -674,5 +668,61 @@ class PinakaImportantengGawainController extends Controller
             }
         }
         return $data;
+    }
+
+    private function get_j_additional_information()
+    {
+        // $j_additional_information = AgriExtensionCompetenciesRecord::where('j_additional_information_0', '==', '')->get('k_additional_information');
+
+        $stacked_data = [
+            "labels" => ["Preservice training", "In-service training", "Basic induction training", "National and international serminars, etc."],
+            "datasets" => [
+                [
+                    "id" => "dili_angay",
+                    "type" => "bar",
+                    "label" => "Dili Angay",
+                    "backgroundColor" => "#ff4949",
+                    "data" => [0, 0, 0, 0]
+                ],
+                [
+                    "id" => "medyo_angay",
+                    "type" => "bar",
+                    "label" => "Medyo Angay",
+                    "backgroundColor" => "#ffff00",
+                    "data" => [0, 0, 0, 0]
+                ],
+                [
+                    "id" => "angay",
+                    "type" => "bar",
+                    "label" => "Angay",
+                    "backgroundColor" => "#42A5F5",
+                    "data" => [0, 0, 0, 0]
+                ],
+                [
+                    "id" => "angayan_kaayo",
+                    "type" => "bar",
+                    "label" => "Angayan Kaayo",
+                    "backgroundColor" => "#00c50f",
+                    "data" => [0, 0, 0, 0]
+                ]
+            ]
+        ];
+
+        $fields = [
+            "j_additional_information_0",
+            "j_additional_information_1",
+            "j_additional_information_2",
+            "j_additional_information_3"
+        ];
+
+        foreach ($fields as $field_key => $field) {
+            // $count = AgriExtensionCompetenciesRecord::where($field, "=", $choice)->get()->count();
+            foreach ($stacked_data["datasets"] as $dataset_key => $dataset) {
+                $stacked_data["datasets"][$dataset_key]["data"][$field_key] += AgriExtensionCompetenciesRecord::where($field, "=", $dataset["id"])->get()->count();
+
+            }
+        }
+
+        return $stacked_data;
     }
 }
