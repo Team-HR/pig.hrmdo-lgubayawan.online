@@ -6,7 +6,7 @@
     <!-- {{ datasets }} -->
     <div>
       <div class="card">
-        <span class="font-bold">Overall</span>
+        <div class="font-bold uppercase text-2xl">Overall Report</div>
         <Chart type="bar" :data="stacked_data" :options="stackedOptions" />
       </div>
 
@@ -16,7 +16,7 @@
         :key="competency.id"
       >
         <span class="font-bold">{{
-          `${c} ${competency.id}`.toUpperCase()
+          `${c + 1} ${competency.id}`.toUpperCase()
         }}</span>
         <div
           class="ml-5"
@@ -34,6 +34,29 @@
           />
         </div>
       </div>
+
+      <!-- comments start -->
+      <div class="card">
+        <div class="font-bold uppercase text-2xl">Comments and Suggestions</div>
+        <ul>
+          <li
+            class="uppercase text-xl"
+            v-for="(comment, i) in i_additional_information"
+            :key="i"
+          >
+            {{ comment }}
+          </li>
+
+          <li
+            class="uppercase text-xl"
+            v-for="(comment, i) in k_additional_information"
+            :key="i"
+          >
+            {{ comment }}
+          </li>
+        </ul>
+      </div>
+      <!-- comments end -->
     </div>
   </pig>
 </template>
@@ -396,6 +419,8 @@ export default {
       console.log("reinitChart");
     },
   },
-  mounted() {},
+  mounted() {
+    // console.log(this.k_additional_information);
+  },
 };
 </script>
