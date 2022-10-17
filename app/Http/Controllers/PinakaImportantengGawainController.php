@@ -635,6 +635,10 @@ class PinakaImportantengGawainController extends Controller
 
             // get respondents percentile for each datasets
             foreach ($stacked_data["datasets"] as $k => $choice) {
+                if (!$stacked_data["totals"][$key]) {
+                    $stacked_data["datasets"][$k]["data"][$key] = 0;
+                    continue;
+                }
                 $stacked_data["datasets"][$k]["data"][$key] = round(($choice["respondents"][$key] / $stacked_data["totals"][$key]) * 100);
             }
         }
@@ -719,7 +723,6 @@ class PinakaImportantengGawainController extends Controller
             // $count = AgriExtensionCompetenciesRecord::where($field, "=", $choice)->get()->count();
             foreach ($stacked_data["datasets"] as $dataset_key => $dataset) {
                 $stacked_data["datasets"][$dataset_key]["data"][$field_key] += AgriExtensionCompetenciesRecord::where($field, "=", $dataset["id"])->get()->count();
-
             }
         }
 
