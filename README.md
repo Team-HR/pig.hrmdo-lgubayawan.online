@@ -29,7 +29,8 @@ The nodejs package contains both the  `node`  and  `npm`  binaries.
 ## Installation for Production
 Note: All commands below must be ran on the application's root folder. Any changes on the pages and command `npm run prod` must be done on development local machine and commited and pushed to the `main` branch of the repo prior pulling in the production root folder. 
 - Clone the main branch of this repository.
-- Run command `sudo chown -R $USER:www-data pig.hrmdo-lgubayawan.online`
+- sudo chmod -R 775 ihris/vendor
+- sudo chown -R $USER:www-data ihris/vendor
 - Run command `composer install`
 - Run command `npm install`
 - Run command `sudo cp .env.example  .env`
